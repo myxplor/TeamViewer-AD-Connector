@@ -213,6 +213,8 @@ function Invoke-SyncUser($syncContext, $configuration, $progressHandler) {
                 $newUser = $userAd.Clone()
                 $newUser.language = $configuration.UserLanguage
 
+                $newUser.add('permissions','AllowPasswordChange')
+
                 if ($configuration.UseDefaultPassword) {
                     $newUser.password = $configuration.DefaultPassword
                 }
