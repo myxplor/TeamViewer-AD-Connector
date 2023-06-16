@@ -70,7 +70,7 @@ function Add-TeamViewerUser($accessToken, $user) {
     }
 
     $payload = @{ }
-    @('email', 'password', 'name', 'language', 'sso_customer_id', 'meeting_license_key') | Where-Object { $user[$_] } | ForEach-Object { $payload[$_] = $user[$_] }
+    @('email', 'password', 'name', 'language', 'sso_customer_id', 'meeting_license_key', 'permissions') | Where-Object { $user[$_] } | ForEach-Object { $payload[$_] = $user[$_] }
 
     return Invoke-TeamViewerRestMethod -Uri "$tvApiBaseUrl/api/$tvApiVersion/users" -Method Post -Headers @{authorization = "Bearer $accessToken" } `
         -ContentType 'application/json; charset=utf-8' -Body ([System.Text.Encoding]::UTF8.GetBytes(($payload | ConvertTo-Json)))
